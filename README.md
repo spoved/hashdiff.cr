@@ -22,7 +22,7 @@ Hashdiff answers the question above using an opinionated approach:
 
 - Hash can be represented as a list of (dot-syntax-path, value) pairs. For example, `{a: [{c: 2}]}` can be represented as `["a[0].c", 2]`.
 - The change set can be represented using the dot-syntax representation. For example, `[{"-", "b.x", 3}, {"~", "b.z", 45, 30}, {"+", "b.y", 3}]`.
-- It compares Arrays using the [LCS(longest common subsequence)](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) algorithm.
+- It compares Arrays using the [LCS (longest common subsequence)](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) algorithm.
 - It recognizes similar Hashes in an Array using a similarity value (0 < similarity <= 1).
 
 ## Installation
