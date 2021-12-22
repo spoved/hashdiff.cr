@@ -6,6 +6,8 @@ It also supports comparing two arrays.
 
 Hashdiff does not monkey-patch any existing class. All features are contained inside the `Hashdiff` module.
 
+[![.github/workflows/ci.yml](https://github.com/spoved/hashdiff.cr/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/spoved/hashdiff.cr/actions/workflows/ci.yml) [![GitHub release](https://img.shields.io/github/release/spoved/hashdiff.cr.svg)](https://github.com/spoved/hashdiff.cr/releases)
+
 ## Why Hashdiff?
 
 Given two Hashes A and B, sometimes you face the question: what's the smallest modification that can be made to change A into B?
@@ -19,7 +21,7 @@ An algorithm that responds to this question has to do following:
 Hashdiff answers the question above using an opinionated approach:
 
 - Hash can be represented as a list of (dot-syntax-path, value) pairs. For example, `{a: [{c: 2}]}` can be represented as `["a[0].c", 2]`.
-- The change set can be represented using the dot-syntax representation. For example, `[["-", "b.x", 3], ["~", "b.z", 45, 30], ["+", "b.y", 3]]`.
+- The change set can be represented using the dot-syntax representation. For example, `[{"-", "b.x", 3}, {"~", "b.z", 45, 30}, {"+", "b.y", 3}]`.
 - It compares Arrays using the [LCS(longest common subsequence)](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem) algorithm.
 - It recognizes similar Hashes in an Array using a similarity value (0 < similarity <= 1).
 
@@ -263,7 +265,7 @@ An order difference alone between two arrays can create too many diffs to be use
 a = {a: "car", b: ["boat", "plane"] }
 b = {a: "car", b: ["plane", "boat"] }
 
-Hashdiff.diff(a, b).should == [["+", "b[0]", "plane"], ["-", "b[2]", "plane"]]
+Hashdiff.diff(a, b).should == [{"+", "b[0]", "plane"}, {"-", "b[2]", "plane"}]
 
 b[:b].sort!
 
