@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.1.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="hashdiff">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="hashdiff">
+  <title>Hashdiff::LinearCompareArray(T, V) - hashdiff master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          hashdiff
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hashdiff/Hashdiff" data-name="hashdiff">
+      <a href="../Hashdiff.html">Hashdiff</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/CompareHashes" data-name="hashdiff::comparehashes">
+      <a href="../Hashdiff/CompareHashes.html">CompareHashes</a>
+      
+    </li>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LcsCompareArrays" data-name="hashdiff::lcscomparearrays">
+      <a href="../Hashdiff/LcsCompareArrays.html">LcsCompareArrays</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="hashdiff/Hashdiff/LinearCompareArray" data-name="hashdiff::linearcomparearray(t, v)">
+      <a href="../Hashdiff/LinearCompareArray.html">LinearCompareArray</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LinearCompareArray/Options" data-name="hashdiff::linearcomparearray::options">
+      <a href="../Hashdiff/LinearCompareArray/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Hashdiff::LinearCompareArray(T, V)
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Hashdiff/LinearCompareArray.html">Hashdiff::LinearCompareArray(T, V)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Used to compare arrays in a linear complexity, which produces longer diffs
+than using the lcs algorithm but is considerably faster</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L4" target="_blank">
+        hashdiff/linear_compare_arrays.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28old_array%3AArray%28T%29%2Cnew_array%3AArray%28V%29%2C%2A%2Aoptions%29-class-method" class="signature"><strong>.new</strong>(old_array : Array(T), new_array : Array(V), **options)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#call%28old_array%3AArray%28L%29%2Cnew_array%3AArray%28M%29%2C%2A%2Aoptions%29forallL%2CM-class-method" class="signature"><strong>.call</strong>(old_array : Array(L), new_array : Array(M), **options) forall L, M</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#additions-instance-method" class="signature"><strong>#additions</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#append_addition%28item%2Cindex%29-instance-method" class="signature"><strong>#append_addition</strong>(item, index)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#append_addititions_before_match%28match_index%29-instance-method" class="signature"><strong>#append_addititions_before_match</strong>(match_index)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#append_deletion%28item%2Cindex%29-instance-method" class="signature"><strong>#append_deletion</strong>(item, index)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#append_deletions_before_match%28match_index%29-instance-method" class="signature"><strong>#append_deletions_before_match</strong>(match_index)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#append_differences%28difference%3AArray%28Tuple%29%29-instance-method" class="signature"><strong>#append_differences</strong>(difference : Array(Tuple))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#call-instance-method" class="signature"><strong>#call</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#compare_at_index-instance-method" class="signature"><strong>#compare_at_index</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#deletions-instance-method" class="signature"><strong>#deletions</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#expected_additions%3AInt32-instance-method" class="signature"><strong>#expected_additions</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#expected_additions%3D%28expected_additions%3AInt32%29-instance-method" class="signature"><strong>#expected_additions=</strong>(expected_additions : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#extra_items_in_new_array%3F-instance-method" class="signature"><strong>#extra_items_in_new_array?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#extra_items_in_old_array%3F-instance-method" class="signature"><strong>#extra_items_in_old_array?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#index_of_match_after_additions-instance-method" class="signature"><strong>#index_of_match_after_additions</strong></a>
+        
+          <div class="summary"><p>look ahead in the new array to see if the current item appears later thereby having new items added</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#index_of_match_after_deletions-instance-method" class="signature"><strong>#index_of_match_after_deletions</strong></a>
+        
+          <div class="summary"><p>look ahead in the old array to see if the current item appears later thereby having items removed</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#item_difference%28old_item%2Cnew_item%2Citem_index%29-instance-method" class="signature"><strong>#item_difference</strong>(old_item, new_item, item_index)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#iterated_through_both_arrays%3F-instance-method" class="signature"><strong>#iterated_through_both_arrays?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new_array%3AArray%28V%29-instance-method" class="signature"><strong>#new_array</strong> : Array(V)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new_index%3AInt32-instance-method" class="signature"><strong>#new_index</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new_index%3D%28new_index%3AInt32%29-instance-method" class="signature"><strong>#new_index=</strong>(new_index : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#old_array%3AArray%28T%29-instance-method" class="signature"><strong>#old_array</strong> : Array(T)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#old_index%3AInt32-instance-method" class="signature"><strong>#old_index</strong> : Int32</a>
+        
+          <div class="summary"><p>getter differences = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#old_index%3D%28old_index%3AInt32%29-instance-method" class="signature"><strong>#old_index=</strong>(old_index : Int32)</a>
+        
+          <div class="summary"><p>getter differences = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#options%3AOptions-instance-method" class="signature"><strong>#options</strong> : Options</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(old_array:Array(T),new_array:Array(V),**options)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(old_array : Array(T), new_array : Array(V), **options)
+
+        <a class="method-permalink" href="#new%28old_array%3AArray%28T%29%2Cnew_array%3AArray%28V%29%2C%2A%2Aoptions%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L31" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="call(old_array:Array(L),new_array:Array(M),**options)forallL,M-class-method">
+      <div class="signature">
+        
+        def self.<strong>call</strong>(old_array : Array(L), new_array : Array(M), **options) forall L, M
+
+        <a class="method-permalink" href="#call%28old_array%3AArray%28L%29%2Cnew_array%3AArray%28M%29%2C%2A%2Aoptions%29forallL%2CM-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="additions-instance-method">
+      <div class="signature">
+        
+        def <strong>additions</strong>
+
+        <a class="method-permalink" href="#additions-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="append_addition(item,index)-instance-method">
+      <div class="signature">
+        
+        def <strong>append_addition</strong>(item, index)
+
+        <a class="method-permalink" href="#append_addition%28item%2Cindex%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L166" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="append_addititions_before_match(match_index)-instance-method">
+      <div class="signature">
+        
+        def <strong>append_addititions_before_match</strong>(match_index)
+
+        <a class="method-permalink" href="#append_addititions_before_match%28match_index%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L150" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="append_deletion(item,index)-instance-method">
+      <div class="signature">
+        
+        def <strong>append_deletion</strong>(item, index)
+
+        <a class="method-permalink" href="#append_deletion%28item%2Cindex%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L171" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="append_deletions_before_match(match_index)-instance-method">
+      <div class="signature">
+        
+        def <strong>append_deletions_before_match</strong>(match_index)
+
+        <a class="method-permalink" href="#append_deletions_before_match%28match_index%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L158" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="append_differences(difference:Array(Tuple))-instance-method">
+      <div class="signature">
+        
+        def <strong>append_differences</strong>(difference : Array(Tuple))
+
+        <a class="method-permalink" href="#append_differences%28difference%3AArray%28Tuple%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L176" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="call-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>
+
+        <a class="method-permalink" href="#call-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L46" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="compare_at_index-instance-method">
+      <div class="signature">
+        
+        def <strong>compare_at_index</strong>
+
+        <a class="method-permalink" href="#compare_at_index-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L93" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="deletions-instance-method">
+      <div class="signature">
+        
+        def <strong>deletions</strong>
+
+        <a class="method-permalink" href="#deletions-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="expected_additions:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>expected_additions</strong> : Int32
+
+        <a class="method-permalink" href="#expected_additions%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="expected_additions=(expected_additions:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>expected_additions=</strong>(expected_additions : Int32)
+
+        <a class="method-permalink" href="#expected_additions%3D%28expected_additions%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="extra_items_in_new_array?-instance-method">
+      <div class="signature">
+        
+        def <strong>extra_items_in_new_array?</strong>
+
+        <a class="method-permalink" href="#extra_items_in_new_array%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L85" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="extra_items_in_old_array?-instance-method">
+      <div class="signature">
+        
+        def <strong>extra_items_in_old_array?</strong>
+
+        <a class="method-permalink" href="#extra_items_in_old_array%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L81" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="index_of_match_after_additions-instance-method">
+      <div class="signature">
+        
+        def <strong>index_of_match_after_additions</strong>
+
+        <a class="method-permalink" href="#index_of_match_after_additions-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>look ahead in the new array to see if the current item appears later
+thereby having new items added</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L116" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="index_of_match_after_deletions-instance-method">
+      <div class="signature">
+        
+        def <strong>index_of_match_after_deletions</strong>
+
+        <a class="method-permalink" href="#index_of_match_after_deletions-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>look ahead in the old array to see if the current item appears later
+thereby having items removed</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L134" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="item_difference(old_item,new_item,item_index)-instance-method">
+      <div class="signature">
+        
+        def <strong>item_difference</strong>(old_item, new_item, item_index)
+
+        <a class="method-permalink" href="#item_difference%28old_item%2Cnew_item%2Citem_index%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L109" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="iterated_through_both_arrays?-instance-method">
+      <div class="signature">
+        
+        def <strong>iterated_through_both_arrays?</strong>
+
+        <a class="method-permalink" href="#iterated_through_both_arrays%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L89" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new_array:Array(V)-instance-method">
+      <div class="signature">
+        
+        def <strong>new_array</strong> : Array(V)
+
+        <a class="method-permalink" href="#new_array%3AArray%28V%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new_index:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>new_index</strong> : Int32
+
+        <a class="method-permalink" href="#new_index%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new_index=(new_index:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>new_index=</strong>(new_index : Int32)
+
+        <a class="method-permalink" href="#new_index%3D%28new_index%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="old_array:Array(T)-instance-method">
+      <div class="signature">
+        
+        def <strong>old_array</strong> : Array(T)
+
+        <a class="method-permalink" href="#old_array%3AArray%28T%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="old_index:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>old_index</strong> : Int32
+
+        <a class="method-permalink" href="#old_index%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>getter differences = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="old_index=(old_index:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>old_index=</strong>(old_index : Int32)
+
+        <a class="method-permalink" href="#old_index%3D%28old_index%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>getter differences = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="options:Options-instance-method">
+      <div class="signature">
+        
+        def <strong>options</strong> : <a href="../Hashdiff/LinearCompareArray/Options.html">Options</a>
+
+        <a class="method-permalink" href="#options%3AOptions-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L23" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

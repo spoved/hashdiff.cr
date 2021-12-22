@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.1.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="hashdiff">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="hashdiff">
+  <title>hashdiff master</title>
+  <script type="text/javascript">
+  CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          hashdiff
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="hashdiff/Hashdiff" data-name="hashdiff">
+      <a href="Hashdiff.html">Hashdiff</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/CompareHashes" data-name="hashdiff::comparehashes">
+      <a href="Hashdiff/CompareHashes.html">CompareHashes</a>
+      
+    </li>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LcsCompareArrays" data-name="hashdiff::lcscomparearrays">
+      <a href="Hashdiff/LcsCompareArrays.html">LcsCompareArrays</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hashdiff/Hashdiff/LinearCompareArray" data-name="hashdiff::linearcomparearray(t, v)">
+      <a href="Hashdiff/LinearCompareArray.html">LinearCompareArray</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LinearCompareArray/Options" data-name="hashdiff::linearcomparearray::options">
+      <a href="Hashdiff/LinearCompareArray/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1><a id="hashdiff" class="anchor" href="#hashdiff">  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>hashdiff</h1>
+<p>Hashdiff is a crystal library to compute the smallest difference between two hashes. It was translated from the <a href="https://github.com/liufengyun/hashdiff">hashdiff</a> ruby gem.</p>
+<p>It also supports comparing two arrays.</p>
+<p>Hashdiff does not monkey-patch any existing class. All features are contained inside the <code><a href="Hashdiff.html">Hashdiff</a></code> module.</p>
+<h2><a id="why-hashdiff" class="anchor" href="#why-hashdiff">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Why Hashdiff?</h2>
+<p>Given two Hashes A and B, sometimes you face the question: what's the smallest modification that can be made to change A into B?</p>
+<p>An algorithm that responds to this question has to do following:</p>
+<ul>
+<li>Generate a list of additions, deletions and changes, so that <code>A + ChangeSet = B</code> and <code>B - ChangeSet = A</code>.</li>
+<li>Compute recursively -- Arrays and Hashes may be nested arbitrarily in A or B.</li>
+<li>Compute the smallest change -- it should recognize similar child Hashes or child Arrays between A and B.</li>
+</ul>
+<p>Hashdiff answers the question above using an opinionated approach:</p>
+<ul>
+<li>Hash can be represented as a list of (dot-syntax-path, value) pairs. For example, <code>{a: [{c: 2}]}</code> can be represented as <code>["a[0].c", 2]</code>.</li>
+<li>The change set can be represented using the dot-syntax representation. For example, <code>[["-", "b.x", 3], ["~", "b.z", 45, 30], ["+", "b.y", 3]]</code>.</li>
+<li>It compares Arrays using the <a href="http://en.wikipedia.org/wiki/Longest_common_subsequence_problem">LCS(longest common subsequence)</a> algorithm.</li>
+<li>It recognizes similar Hashes in an Array using a similarity value (0 &lt; similarity &lt;= 1).</li>
+</ul>
+<h2><a id="installation" class="anchor" href="#installation">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Installation</h2>
+<ol>
+<li>
+<p>Add the dependency to your <code>shard.yml</code>:</p>
+<pre><code class="language-yaml">dependencies:
+  hashdiff:
+    github: spoved/hashdiff.cr</code></pre>
+</li>
+<li>
+<p>Run <code>shards install</code></p>
+</li>
+</ol>
+<h2><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h2>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;hashdiff&quot;</span></code></pre>
+<h3><a id="diff" class="anchor" href="#diff">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Diff</h3>
+<p>Two simple hashes:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: <span class="n">3</span>, b: <span class="n">2</span>}
+b <span class="o">=</span> {}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a&quot;</span>, <span class="n">3</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="n">2</span>}]</code></pre>
+<p>More complex hashes:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: {x: <span class="n">2</span>, y: <span class="n">3</span>, z: <span class="n">4</span>}, b: {x: <span class="n">3</span>, z: <span class="n">45</span>}}
+b <span class="o">=</span> {a: {y: <span class="n">3</span>}, b: {y: <span class="n">3</span>, z: <span class="n">30</span>}}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a.x&quot;</span>, <span class="n">2</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a.z&quot;</span>, <span class="n">4</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b.x&quot;</span>, <span class="n">3</span>}, {<span class="s">&quot;~&quot;</span>, <span class="s">&quot;b.z&quot;</span>, <span class="n">45</span>, <span class="n">30</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b.y&quot;</span>, <span class="n">3</span>}]</code></pre>
+<p>Arrays in hashes:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: [{x: <span class="n">2</span>, y: <span class="n">3</span>, z: <span class="n">4</span>}, {x: <span class="n">11</span>, y: <span class="n">22</span>, z: <span class="n">33</span>}], b: {x: <span class="n">3</span>, z: <span class="n">45</span>}}
+b <span class="o">=</span> {a: [{y: <span class="n">3</span>}, {x: <span class="n">11</span>, z: <span class="n">33</span>}], b: {y: <span class="n">22</span>}}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.best_diff(a, b)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[0].x&quot;</span>, <span class="n">2</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[0].z&quot;</span>, <span class="n">4</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[1].y&quot;</span>, <span class="n">22</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b.x&quot;</span>, <span class="n">3</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b.z&quot;</span>, <span class="n">45</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b.y&quot;</span>, <span class="n">22</span>}]</code></pre>
+<h3><a id="patch" class="anchor" href="#patch">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Patch</h3>
+<p>patch example:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {<span class="s">&quot;a&quot;</span> => <span class="n">3</span>}
+b <span class="o">=</span> {<span class="s">&quot;a&quot;</span> => {<span class="s">&quot;a1&quot;</span> => <span class="n">1</span>, <span class="s">&quot;a2&quot;</span> => <span class="n">2</span>}}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b)
+<span class="t">Hashdiff</span>.patch!(a, diff).should <span class="o">==</span> b</code></pre>
+<p>unpatch example:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> [{<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;d&quot;</span> => <span class="n">4</span>, <span class="s">&quot;e&quot;</span> => <span class="n">5</span>}, {<span class="s">&quot;x&quot;</span> => <span class="n">5</span>, <span class="s">&quot;y&quot;</span> => <span class="n">6</span>, <span class="s">&quot;z&quot;</span> => <span class="n">3</span>}, <span class="n">1</span>]
+b <span class="o">=</span> [<span class="n">1</span>, {<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;e&quot;</span> => <span class="n">5</span>}]
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b) <span class="c"># diff two array is OK</span>
+<span class="t">Hashdiff</span>.unpatch!(b, diff).should <span class="o">==</span> a</code></pre>
+<h3><a id="options" class="anchor" href="#options">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Options</h3>
+<p>There are eight options available: <code>:delimiter</code>, <code>:similarity</code>,
+<code>:strict</code>, <code>:indifferent</code>, <code>:numeric_tolerance</code>, <code>:strip</code>, <code>:case_insensitive</code>,
+<code>:array_path</code> and <code>:use_lcs</code></p>
+<h4><a id="delimiter" class="anchor" href="#delimiter">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:delimiter</code></h4>
+<p>You can specify <code>:delimiter</code> to be something other than the default dot. For example:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: {x: <span class="n">2</span>, y: <span class="n">3</span>, z: <span class="n">4</span>}, b: {x: <span class="n">3</span>, z: <span class="n">45</span>}}
+b <span class="o">=</span> {a: {y: <span class="n">3</span>}, b: {y: <span class="n">3</span>, z: <span class="n">30</span>}}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, delimiter: <span class="s">&quot;\t&quot;</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a\tx&quot;</span>, <span class="n">2</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a\tz&quot;</span>, <span class="n">4</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b\tx&quot;</span>, <span class="n">3</span>}, {<span class="s">&quot;~&quot;</span>, <span class="s">&quot;b\tz&quot;</span>, <span class="n">45</span>, <span class="n">30</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b\ty&quot;</span>, <span class="n">3</span>}]</code></pre>
+<h4><a id="similarity" class="anchor" href="#similarity">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:similarity</code></h4>
+<p>In cases where you have similar hash objects in arrays, you can pass a custom value for <code>:similarity</code> instead of the default <code>0.8</code>. This is interpreted as a ratio of similarity (default is 80% similar, whereas <code>:similarity => 0.5</code> would look for at least a 50% similarity).</p>
+<h4><a id="strict" class="anchor" href="#strict">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:strict</code></h4>
+<p>The <code>:strict</code> option, which defaults to <code>true</code>, specifies whether numeric types are compared on type as well as value. By default, an Integer will never be equal to a Float (e.g. 4 != 4.0). Setting <code>:strict</code> to false makes the comparison looser (e.g. 4 == 4.0).</p>
+<h4><a id="indifferent" class="anchor" href="#indifferent">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:indifferent</code></h4>
+<p>The <code>:indifferent</code> option, which defaults to <code>false</code>, specifies whether to treat hash keys indifferently. Setting <code>:indifferent</code> to true has the effect of ignoring differences between symbol keys (ie. {a: 1} ~= {&quot;a&quot; =&gt; 1})</p>
+<h4><a id="numeric-tolerance" class="anchor" href="#numeric-tolerance">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:numeric_tolerance</code></h4>
+<p>The :numeric_tolerance option allows for a small numeric tolerance.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: <span class="n">5</span>, y: <span class="n">3.75</span>, z: <span class="n">7</span>}
+b <span class="o">=</span> {x: <span class="n">6</span>, y: <span class="n">3.76</span>, z: <span class="n">7</span>}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, numeric_tolerance: <span class="n">0.1</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;x&quot;</span>, <span class="n">5</span>, <span class="n">6</span>}]</code></pre>
+<h4><a id="strip" class="anchor" href="#strip">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:strip</code></h4>
+<p>The :strip option strips all strings before comparing.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: <span class="n">5</span>, s: <span class="s">&quot;foo &quot;</span>}
+b <span class="o">=</span> {x: <span class="n">6</span>, s: <span class="s">&quot;foo&quot;</span>}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, numeric_tolerance: <span class="n">0.1</span>, strip: <span class="n">true</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;x&quot;</span>, <span class="n">5</span>, <span class="n">6</span>}]</code></pre>
+<h4><a id="case-insensitive" class="anchor" href="#case-insensitive">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:case_insensitive</code></h4>
+<p>The :case_insensitive option makes string comparisons ignore case.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: <span class="n">5</span>, s: <span class="s">&quot;FooBar&quot;</span>}
+b <span class="o">=</span> {x: <span class="n">6</span>, s: <span class="s">&quot;foobar&quot;</span>}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, numeric_tolerance: <span class="n">0.1</span>, case_insensitive: <span class="n">true</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;x&quot;</span>, <span class="n">5</span>, <span class="n">6</span>}]</code></pre>
+<h4><a id="array-path" class="anchor" href="#array-path">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:array_path</code></h4>
+<p>The :array_path option represents the path of the diff in an array rather than
+a string. This can be used to show differences in between hash key types and
+is useful for <code>patch!</code> when used on hashes without string keys.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: <span class="n">5</span>}
+b <span class="o">=</span> {<span class="s">&quot;x&quot;</span> => <span class="n">6</span>}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, array_path: <span class="n">true</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, [<span class="n">:x</span>], <span class="n">5</span>}, {<span class="s">&quot;+&quot;</span>, [<span class="s">&quot;x&quot;</span>], <span class="n">6</span>}]</code></pre>
+<p>For cases where there are arrays in paths their index will be added to the path.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: [<span class="n">0</span>,<span class="n">1</span>]}
+b <span class="o">=</span> {x: [<span class="n">0</span>,<span class="n">2</span>]}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, array_path: <span class="n">true</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, [<span class="n">:x</span>, <span class="n">1</span>], <span class="n">1</span>}, {<span class="s">&quot;+&quot;</span>, [<span class="n">:x</span>, <span class="n">1</span>], <span class="n">2</span>}]</code></pre>
+<p>This shouldn't cause problems if you are comparing an array with a hash:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: {<span class="n">0</span>=><span class="n">1</span>}}
+b <span class="o">=</span> {x: [<span class="n">1</span>]}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, array_path: <span class="n">true</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, [<span class="n">:x</span>], {<span class="n">0</span>=><span class="n">1</span>}, [<span class="n">1</span>]}]</code></pre>
+<h4><a id="use-lcs" class="anchor" href="#use-lcs">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a><code>:use_lcs</code></h4>
+<p>The :use_lcs option is used to specify whether a
+<a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest common subsequence</a>
+(LCS) algorithm is used to determine differences in arrays. This defaults to
+<code>true</code> but can be changed to <code>false</code> for significantly faster array comparisons
+(O(n) complexity rather than O(n<sup>2</sup>) for LCS).</p>
+<p>When :use_lcs is false the results of array comparisons have a tendency to
+show changes at indexes rather than additions and subtractions when :use_lcs is
+true.</p>
+<p>Note, currently the :similarity option has no effect when :use_lcs is false.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {x: [<span class="n">0</span>, <span class="n">1</span>, <span class="n">2</span>]}
+b <span class="o">=</span> {x: [<span class="n">0</span>, <span class="n">2</span>, <span class="n">2</span>, <span class="n">3</span>]}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b, use_lcs: <span class="n">false</span>)
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;x[1]&quot;</span>, <span class="n">1</span>, <span class="n">2</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;x[3]&quot;</span>, <span class="n">3</span>}]</code></pre>
+<h4><a id="specifying-a-custom-comparison-method" class="anchor" href="#specifying-a-custom-comparison-method">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Specifying a custom comparison method</h4>
+<p>It's possible to specify how the values of a key should be compared.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: <span class="s">&quot;boat&quot;</span>, c: <span class="s">&quot;plane&quot;</span>}
+b <span class="o">=</span> {a: <span class="s">&quot;bus&quot;</span>, b: <span class="s">&quot;truck&quot;</span>, c: <span class="s">&quot; plan&quot;</span>}
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b) <span class="k">do</span> <span class="o">|</span>path, obj1, obj2<span class="o">|</span>
+  <span class="k">case</span> path
+  <span class="k">when</span>  <span class="s">/a|b|c/</span>
+    obj1.length <span class="o">==</span> obj2.length
+  <span class="k">end</span>
+<span class="k">end</span>
+
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;boat&quot;</span>, <span class="s">&quot;truck&quot;</span>}]</code></pre>
+<p>The yielded params of the comparison block is <code>|path, obj1, obj2|</code>, in which path is the key (or delimited compound key) to the value being compared. When comparing elements in array, the path is with the format <code>array[*]</code>. For example:</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: [<span class="s">&quot;boat&quot;</span>, <span class="s">&quot;plane&quot;</span>] }
+b <span class="o">=</span> {a: <span class="s">&quot;bus&quot;</span>, b: [<span class="s">&quot;truck&quot;</span>, <span class="s">&quot; plan&quot;</span>] }
+
+diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b) <span class="k">do</span> <span class="o">|</span>path, obj1, obj2<span class="o">|</span>
+  <span class="k">case</span> path
+  <span class="k">when</span> <span class="s">&quot;b[*]&quot;</span>
+    obj1.length <span class="o">==</span> obj2.length
+  <span class="k">end</span>
+<span class="k">end</span>
+
+diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <span class="s">&quot;a&quot;</span>, <span class="s">&quot;car&quot;</span>, <span class="s">&quot;bus&quot;</span>}, {<span class="s">&quot;~&quot;</span>, <span class="s">&quot;b[1]&quot;</span>, <span class="s">&quot;plane&quot;</span>, <span class="s">&quot; plan&quot;</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b[0]&quot;</span>, <span class="s">&quot;boat&quot;</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b[0]&quot;</span>, <span class="s">&quot;truck&quot;</span>}]</code></pre>
+<p>When a comparison block is given, it'll be given priority over other specified options. If the block returns value other than <code>true</code> or <code>false</code>, then the two values will be compared with other specified options.</p>
+<p>When used in conjunction with the <code>array_path</code> option, the path passed in as an argument will be an array. When determining the ordering of an array a key of <code>"*"</code> will be used in place of the <code>key[*]</code> field. It is possible, if you have hashes with integer or <code>"*"</code> keys, to have problems distinguishing between arrays and hashes - although this shouldn't be an issue unless your data is very difficult to predict and/or your custom rules are very specific.</p>
+<h4><a id="sorting-arrays-before-comparison" class="anchor" href="#sorting-arrays-before-comparison">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Sorting arrays before comparison</h4>
+<p>An order difference alone between two arrays can create too many diffs to be useful. Consider sorting them prior to diffing.</p>
+<pre><code class="language-crystal">a <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: [<span class="s">&quot;boat&quot;</span>, <span class="s">&quot;plane&quot;</span>] }
+b <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: [<span class="s">&quot;plane&quot;</span>, <span class="s">&quot;boat&quot;</span>] }
+
+<span class="t">Hashdiff</span>.diff(a, b).should <span class="o">==</span> [[<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b[0]&quot;</span>, <span class="s">&quot;plane&quot;</span>], [<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b[2]&quot;</span>, <span class="s">&quot;plane&quot;</span>]]
+
+b[<span class="n">:b</span>].sort!
+
+<span class="t">Hashdiff</span>.diff(a, b).should <span class="o">==</span> <span class="o">[]</span></code></pre>
+<h2><a id="contributing" class="anchor" href="#contributing">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributing</h2>
+<ol>
+<li>Fork it (<a href="https://github.com/spoved/hashdiff.cr/fork">https://github.com/spoved/hashdiff.cr/fork</a>)</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+<h2><a id="contributors" class="anchor" href="#contributors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributors</h2>
+<ul>
+<li><a href="https://github.com/kalinon">Holden Omans</a> - creator and maintainer</li>
+<li>Krzysztof Rybka (<a href="https://github.com/krzysiek1507">@krzysiek1507</a>) - hashdiff gem maintainer</li>
+<li>Fengyun Liu (<a href="https://github.com/liufengyun">@liufengyun</a>) - hashdiff gem maintainer</li>
+</ul>
+</div>
+</body>
+</html>

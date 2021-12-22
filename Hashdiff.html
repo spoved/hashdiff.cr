@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.1.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="hashdiff">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="hashdiff">
+  <title>Hashdiff - hashdiff master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          hashdiff
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="hashdiff/Hashdiff" data-name="hashdiff">
+      <a href="Hashdiff.html">Hashdiff</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/CompareHashes" data-name="hashdiff::comparehashes">
+      <a href="Hashdiff/CompareHashes.html">CompareHashes</a>
+      
+    </li>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LcsCompareArrays" data-name="hashdiff::lcscomparearrays">
+      <a href="Hashdiff/LcsCompareArrays.html">LcsCompareArrays</a>
+      
+    </li>
+  
+  <li class="parent " data-id="hashdiff/Hashdiff/LinearCompareArray" data-name="hashdiff::linearcomparearray(t, v)">
+      <a href="Hashdiff/LinearCompareArray.html">LinearCompareArray</a>
+      
+        <ul>
+  
+  <li class=" " data-id="hashdiff/Hashdiff/LinearCompareArray/Options" data-name="hashdiff::linearcomparearray::options">
+      <a href="Hashdiff/LinearCompareArray/Options.html">Options</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Hashdiff
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="extended-modules" class="anchor" href="#extended-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Extended Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="Hashdiff.html">Hashdiff</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff.cr#L5" target="_blank">
+        hashdiff.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/lcs.cr#L3" target="_blank">
+        hashdiff/lcs.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/linear_compare_arrays.cr#L1" target="_blank">
+        hashdiff/linear_compare_arrays.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L1" target="_blank">
+        hashdiff/util.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/version.cr#L1" target="_blank">
+        version.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="Log">
+        <strong>Log</strong> = <code><span class="t">::</span><span class="t">Log</span>.<span class="k">for</span>(<span class="s">&quot;hashdiff&quot;</span>)</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="VERSION">
+        <strong>VERSION</strong> = <code><span class="s">&quot;0.1.0&quot;</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#best_diff%28obj1%2Cobj2%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#best_diff</strong>(obj1, obj2, **options)</a>
+        
+          <div class="summary"><p>Best diff two objects, which tries to generate the smallest change set using different similarity values.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comparable%3F%28obj1%3AT%2Cobj2%3AL%2Cstrict%3Dtrue%29%3ABoolforallT%2CL-instance-method" class="signature"><strong>#comparable?</strong>(obj1 : T, obj2 : L, strict = <span class="n">true</span>) : Bool forall T, L</a>
+        
+          <div class="summary"><p>check if objects are comparable</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#compare_values%28obj1%3ANumber%2Cobj2%3ANumber%2C%2A%2Aoptions%29%3ABool-instance-method" class="signature"><strong>#compare_values</strong>(obj1 : Number, obj2 : Number, **options) : Bool</a>
+        
+          <div class="summary"><p>check for equality or &quot;closeness&quot; within given tolerance</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#compare_values%28obj1%3AString%2Cobj2%3AString%2C%2A%2Aoptions%29%3ABool-instance-method" class="signature"><strong>#compare_values</strong>(obj1 : String, obj2 : String, **options) : Bool</a>
+        
+          <div class="summary"><p>check for equality or &quot;closeness&quot; within given tolerance</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#compare_values%28obj1%3AT%2Cobj2%3AL%2C%2A%2Aoptions%29%3ABoolforallT%2CL-instance-method" class="signature"><strong>#compare_values</strong>(obj1 : T, obj2 : L, **options) : Bool forall T, L</a>
+        
+          <div class="summary"><p>check for equality or &quot;closeness&quot; within given tolerance</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count_diff%28diffs%29-instance-method" class="signature"><strong>#count_diff</strong>(diffs)</a>
+        
+          <div class="summary"><p>count node differences</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count_nodes%28obj%29-instance-method" class="signature"><strong>#count_nodes</strong>(obj)</a>
+        
+          <div class="summary"><p>count total nodes for an object</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#decode_property_path%28path%2Cdelimiter%3D%27.%27%29-instance-method" class="signature"><strong>#decode_property_path</strong>(path, delimiter = <span class="s">&#39;.&#39;</span>)</a>
+        
+          <div class="summary"><p>decode property path into an array [String] path Property-string [String] delimiter Property-string delimiter</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#diff%28obj1%3ANamedTuple%2Cobj2%3ANamedTuple%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#diff</strong>(obj1 : NamedTuple, obj2 : NamedTuple, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#diff%28obj1%3AT%2Cobj2%3AL%2C%2A%2Aoptions%29forallT%2CL-instance-method" class="signature"><strong>#diff</strong>(obj1 : T, obj2 : L, **options) forall T, L</a>
+        
+          <div class="summary"><p>ameba:disable Metrics/CyclomaticComplexity</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#diff_array_lcs%28arraya%2Carrayb%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#diff_array_lcs</strong>(arraya, arrayb, **options, &)</a>
+        
+          <div class="summary"><p>diff array using LCS algorithm</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#lcs%28arraya%2Carrayb%2C%2A%2Aoptions%29%3AArray%28Tuple%28Int32%2CInt32%29%29-instance-method" class="signature"><strong>#lcs</strong>(arraya, arrayb, **options) : Array(Tuple(Int32, Int32))</a>
+        
+          <div class="summary"><p>caculate array difference using LCS algorithm http://en.wikipedia.org/wiki/Longest_common_subsequence_problem ameba:disable Metrics/CyclomaticComplexity</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#node%28hash%3AHash%28K%2CV%29%2Cparts%3AArray%28W%29%29forallK%2CV%2CW-instance-method" class="signature"><strong>#node</strong>(hash : Hash(K, V), parts : Array(W)) forall K, V, W</a>
+        
+          <div class="summary"><p>get the node of hash by given path parts</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prefix_append_array_index%28prefix%3AArray%28T%29%2Carray_index%3AV%2C%2A%2Aopts%29forallT%2CV-instance-method" class="signature"><strong>#prefix_append_array_index</strong>(prefix : Array(T), array_index : V, **opts) forall T, V</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prefix_append_array_index%28prefix%3AString%2Carray_index%2C%2A%2Aopts%29-instance-method" class="signature"><strong>#prefix_append_array_index</strong>(prefix : String, array_index, **opts)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prefix_append_key%28key%3AV%2Cprefix%3AArray%28T%29%2C%2A%2Aopts%29forallT%2CV-instance-method" class="signature"><strong>#prefix_append_key</strong>(key : V, prefix : Array(T), **opts) forall T, V</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prefix_append_key%28key%2Cprefix%3AString%2C%2A%2Aopts%29-instance-method" class="signature"><strong>#prefix_append_key</strong>(key, prefix : String, **opts)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#similar%3F%28obja%2Cobjb%2C%2A%2Aoptions%29%3ABool-instance-method" class="signature"><strong>#similar?</strong>(obja, objb, **options) : Bool</a>
+        
+          <div class="summary"><p>judge whether two objects are similar</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="best_diff(obj1,obj2,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>best_diff</strong>(obj1, obj2, **options)
+
+        <a class="method-permalink" href="#best_diff%28obj1%2Cobj2%2C%2A%2Aoptions%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Best diff two objects, which tries to generate the smallest change set using different similarity values.</p>
+<p>Hashdiff.best_diff is useful in case of comparing two objects which include similar hashes in arrays.</p>
+<p>The options to use when comparing</p>
+<ul>
+<li>:strict (Boolean) [true] whether numeric values will be compared on type as well as value.  Set to false to allow comparing Integer, Float, BigDecimal to each other</li>
+<li>:indifferent (Boolean) [false] whether to treat hash keys indifferently.  Set to true to ignore differences between symbol keys (ie. {a: 1} ~= {'a' =&gt; 1})</li>
+<li>:delimiter (String) ['.'] the delimiter used when returning nested key references</li>
+<li>:numeric_tolerance (Numeric) [0] should be a positive numeric value.  Value by which numeric differences must be greater than.  By default, numeric values are compared exactly; with the :tolerance option, the difference between numeric values must be greater than the given value.</li>
+<li>:strip (Boolean) [false] whether or not to call #strip on strings before comparing</li>
+<li>:array_path (Boolean) [false] whether to return the path references for nested values in an array, can be used for patch compatibility with non string keys.</li>
+<li>:use_lcs (Boolean) [true] whether or not to use an implementation of the Longest common subsequence algorithm for comparing arrays, produces better diffs but is slower.</li>
+</ul>
+<p>returns an array of change tuples.
+e.g. [{ '+', 'a.b', '45' }, { '-', 'a.c', '5' }, { '~', 'a.x', '45', '63 }']</p>
+<pre><code class="language-crystal">  a = {'x' => [{'a' => 1, 'c' => 3, 'e' => 5}, {'y' => 3}]}
+  b = {'x' => [{'a' => 1, 'b' => 2, 'e' => 5}] }
+  diff = Hashdiff.best_diff(a, b)
+  diff.should == [{'-', 'x[0].c', 3}, {'+', 'x[0].b', 2}, {'-', 'x[1].y', 3}, {'-', 'x[1]', {}}]</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff.cr#L35" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comparable?(obj1:T,obj2:L,strict=true):BoolforallT,L-instance-method">
+      <div class="signature">
+        
+        def <strong>comparable?</strong>(obj1 : T, obj2 : L, strict = <span class="n">true</span>) : Bool forall T, L
+
+        <a class="method-permalink" href="#comparable%3F%28obj1%3AT%2Cobj2%3AL%2Cstrict%3Dtrue%29%3ABoolforallT%2CL-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>check if objects are comparable</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="compare_values(obj1:Number,obj2:Number,**options):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>compare_values</strong>(obj1 : Number, obj2 : Number, **options) : Bool
+
+        <a class="method-permalink" href="#compare_values%28obj1%3ANumber%2Cobj2%3ANumber%2C%2A%2Aoptions%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>check for equality or &quot;closeness&quot; within given tolerance</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L89" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="compare_values(obj1:String,obj2:String,**options):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>compare_values</strong>(obj1 : String, obj2 : String, **options) : Bool
+
+        <a class="method-permalink" href="#compare_values%28obj1%3AString%2Cobj2%3AString%2C%2A%2Aoptions%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>check for equality or &quot;closeness&quot; within given tolerance</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="compare_values(obj1:T,obj2:L,**options):BoolforallT,L-instance-method">
+      <div class="signature">
+        
+        def <strong>compare_values</strong>(obj1 : T, obj2 : L, **options) : Bool forall T, L
+
+        <a class="method-permalink" href="#compare_values%28obj1%3AT%2Cobj2%3AL%2C%2A%2Aoptions%29%3ABoolforallT%2CL-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>check for equality or &quot;closeness&quot; within given tolerance</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L84" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count_diff(diffs)-instance-method">
+      <div class="signature">
+        
+        def <strong>count_diff</strong>(diffs)
+
+        <a class="method-permalink" href="#count_diff%28diffs%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>count node differences</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count_nodes(obj)-instance-method">
+      <div class="signature">
+        
+        def <strong>count_nodes</strong>(obj)
+
+        <a class="method-permalink" href="#count_nodes%28obj%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>count total nodes for an object</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L37" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="decode_property_path(path,delimiter=&#39;.&#39;)-instance-method">
+      <div class="signature">
+        
+        def <strong>decode_property_path</strong>(path, delimiter = <span class="s">&#39;.&#39;</span>)
+
+        <a class="method-permalink" href="#decode_property_path%28path%2Cdelimiter%3D%27.%27%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>decode property path into an array
+[String] path Property-string
+[String] delimiter Property-string delimiter</p>
+<p>e.g. &quot;a.b[3].c&quot; =&gt; ['a', 'b', 3, 'c']</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L57" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="diff(obj1:NamedTuple,obj2:NamedTuple,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>diff</strong>(obj1 : NamedTuple, obj2 : NamedTuple, **options)
+
+        <a class="method-permalink" href="#diff%28obj1%3ANamedTuple%2Cobj2%3ANamedTuple%2C%2A%2Aoptions%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff.cr#L93" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="diff(obj1:T,obj2:L,**options)forallT,L-instance-method">
+      <div class="signature">
+        
+        def <strong>diff</strong>(obj1 : T, obj2 : L, **options) forall T, L
+
+        <a class="method-permalink" href="#diff%28obj1%3AT%2Cobj2%3AL%2C%2A%2Aoptions%29forallT%2CL-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>ameba:disable Metrics/CyclomaticComplexity</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff.cr#L53" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="diff_array_lcs(arraya,arrayb,**options,&amp;)-instance-method">
+      <div class="signature">
+        
+        def <strong>diff_array_lcs</strong>(arraya, arrayb, **options, &)
+
+        <a class="method-permalink" href="#diff_array_lcs%28arraya%2Carrayb%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>diff array using LCS algorithm</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="lcs(arraya,arrayb,**options):Array(Tuple(Int32,Int32))-instance-method">
+      <div class="signature">
+        
+        def <strong>lcs</strong>(arraya, arrayb, **options) : Array(Tuple(Int32, Int32))
+
+        <a class="method-permalink" href="#lcs%28arraya%2Carrayb%2C%2A%2Aoptions%29%3AArray%28Tuple%28Int32%2CInt32%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>caculate array difference using LCS algorithm
+http://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+ameba:disable Metrics/CyclomaticComplexity</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/lcs.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="node(hash:Hash(K,V),parts:Array(W))forallK,V,W-instance-method">
+      <div class="signature">
+        
+        def <strong>node</strong>(hash : Hash(K, V), parts : Array(W)) forall K, V, W
+
+        <a class="method-permalink" href="#node%28hash%3AHash%28K%2CV%29%2Cparts%3AArray%28W%29%29forallK%2CV%2CW-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>get the node of hash by given path parts</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L74" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prefix_append_array_index(prefix:Array(T),array_index:V,**opts)forallT,V-instance-method">
+      <div class="signature">
+        
+        def <strong>prefix_append_array_index</strong>(prefix : Array(T), array_index : V, **opts) forall T, V
+
+        <a class="method-permalink" href="#prefix_append_array_index%28prefix%3AArray%28T%29%2Carray_index%3AV%2C%2A%2Aopts%29forallT%2CV-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L122" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prefix_append_array_index(prefix:String,array_index,**opts)-instance-method">
+      <div class="signature">
+        
+        def <strong>prefix_append_array_index</strong>(prefix : String, array_index, **opts)
+
+        <a class="method-permalink" href="#prefix_append_array_index%28prefix%3AString%2Carray_index%2C%2A%2Aopts%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L126" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prefix_append_key(key:V,prefix:Array(T),**opts)forallT,V-instance-method">
+      <div class="signature">
+        
+        def <strong>prefix_append_key</strong>(key : V, prefix : Array(T), **opts) forall T, V
+
+        <a class="method-permalink" href="#prefix_append_key%28key%3AV%2Cprefix%3AArray%28T%29%2C%2A%2Aopts%29forallT%2CV-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L112" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prefix_append_key(key,prefix:String,**opts)-instance-method">
+      <div class="signature">
+        
+        def <strong>prefix_append_key</strong>(key, prefix : String, **opts)
+
+        <a class="method-permalink" href="#prefix_append_key%28key%2Cprefix%3AString%2C%2A%2Aopts%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L117" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="similar?(obja,objb,**options):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>similar?</strong>(obja, objb, **options) : Bool
+
+        <a class="method-permalink" href="#similar%3F%28obja%2Cobjb%2C%2A%2Aoptions%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>judge whether two objects are similar</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/spoved/hashdiff.cr/blob/3c7ee5d9f4cd204db6ebd3835a42782a01748d22/src/hashdiff/util.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
