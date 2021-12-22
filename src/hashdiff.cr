@@ -49,6 +49,42 @@ module Hashdiff
     (count < count3) ? diffs : diffs3
   end
 
+  private macro _array_compare(t, l, klass)
+    case obj1
+    {% for ttyp in t.select { |i| i.resolve < Array } %}
+    when {{ttyp.id}}
+      case obj2
+      {% for ltyp in l.select { |i| i.resolve < Array } %}
+        when {{ltyp.id}}
+        {{klass.id}}.call(obj1.as({{ttyp.id}}), obj2.as({{ltyp.id}}), **opts)
+      {% end %}
+      else
+        raise "Unsupported type: #{obj2.class}"
+      end
+    {% end %}
+    else
+      raise "Unsupported type: #{obj1.class}"
+    end
+  end
+
+  private macro _hash_compare(t, l, klass)
+    case obj1
+    {% for ttyp in t.select { |i| i.resolve < Hash } %}
+    when {{ttyp.id}}
+      case obj2
+      {% for ltyp in l.select { |i| i.resolve < Hash } %}
+        when {{ltyp.id}}
+        {{klass.id}}.call(obj1.as({{ttyp.id}}), obj2.as({{ltyp.id}}), **opts)
+      {% end %}
+      else
+        raise "Unsupported type: #{obj2.class}"
+      end
+    {% end %}
+    else
+      raise "Unsupported type: #{obj1.class}"
+    end
+  end
+
   # ameba:disable Metrics/CyclomaticComplexity
   def diff(obj1 : T, obj2 : L, **options) forall T, L
     obj1 = obj1.to_h if obj1.is_a?(NamedTuple)
@@ -76,11 +112,23 @@ module Hashdiff
               elsif !comparable?(obj1, obj2, opts[:strict])
                 [{"~", opts[:prefix], obj1, obj2}]
               elsif obj1.is_a?(Array) && obj2.is_a?(Array) && opts[:use_lcs]
-                LcsCompareArrays.call(obj1, obj2, **opts)
+                {% if T.union? || L.union? %}
+                  _array_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, LcsCompareArrays)
+                {% else %}
+                  LcsCompareArrays.call(obj1, obj2, **opts)
+                {% end %}
               elsif obj1.is_a?(Array) && obj2.is_a?(Array) && !opts[:use_lcs]
-                LinearCompareArray.call(obj1, obj2, **opts)
+                {% if T.union? || L.union? %}
+                  _array_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, LinearCompareArray)
+                {% else %}
+                  LinearCompareArray.call(obj1, obj2, **opts)
+                {% end %}
               elsif obj1.is_a?(Hash) && obj2.is_a?(Hash)
-                CompareHashes.call(obj1, obj2, **opts)
+                {% if T.union? || L.union? %}
+                  _hash_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, CompareHashes)
+                {% else %}
+                  CompareHashes.call(obj1, obj2, **opts)
+                {% end %}
               elsif compare_values(obj1, obj2, **opts)
                 Array(DiffResult).new
               else

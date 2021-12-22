@@ -42,6 +42,7 @@ module Hashdiff::CompareHashes
       prefix = Hashdiff.prefix_append_key(k, **opts)
       k1 = opts[:indifferent] ? obj1_lookup[k] : k
       k2 = opts[:indifferent] ? obj2_lookup[k] : k
+
       Hashdiff.diff(obj1[k1]?, obj2[k2]?, **opts.merge(prefix: prefix)).each do |change|
         result += [change]
       end

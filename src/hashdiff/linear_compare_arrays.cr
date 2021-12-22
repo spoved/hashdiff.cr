@@ -2,7 +2,7 @@ module Hashdiff
   # Used to compare arrays in a linear complexity, which produces longer diffs
   # than using the lcs algorithm but is considerably faster
   class LinearCompareArray(T, V)
-    def self.call(old_array : Array(L), new_array : Array(M), **options) forall L, M
+    def self.call(old_array : Array(L), new_array : Array(M), **options) forall L, M, T, V
       LinearCompareArray(L, M).new(old_array, new_array, **options).call
     end
 
