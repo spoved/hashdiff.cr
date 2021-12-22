@@ -100,6 +100,7 @@
 <p>Hashdiff is a crystal library to compute the smallest difference between two hashes. It was translated from the <a href="https://github.com/liufengyun/hashdiff">hashdiff</a> ruby gem.</p>
 <p>It also supports comparing two arrays.</p>
 <p>Hashdiff does not monkey-patch any existing class. All features are contained inside the <code><a href="Hashdiff.html">Hashdiff</a></code> module.</p>
+<p><a href="https://github.com/spoved/hashdiff.cr/actions/workflows/ci.yml"><img src="https://github.com/spoved/hashdiff.cr/actions/workflows/ci.yml/badge.svg?branch=master" alt=".github/workflows/ci.yml" /></a> <a href="https://github.com/spoved/hashdiff.cr/releases"><img src="https://img.shields.io/github/release/spoved/hashdiff.cr.svg" alt="GitHub release" /></a></p>
 <h2><a id="why-hashdiff" class="anchor" href="#why-hashdiff">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -115,7 +116,7 @@
 <p>Hashdiff answers the question above using an opinionated approach:</p>
 <ul>
 <li>Hash can be represented as a list of (dot-syntax-path, value) pairs. For example, <code>{a: [{c: 2}]}</code> can be represented as <code>["a[0].c", 2]</code>.</li>
-<li>The change set can be represented using the dot-syntax representation. For example, <code>[["-", "b.x", 3], ["~", "b.z", 45, 30], ["+", "b.y", 3]]</code>.</li>
+<li>The change set can be represented using the dot-syntax representation. For example, <code>[{"-", "b.x", 3}, {"~", "b.z", 45, 30}, {"+", "b.y", 3}]</code>.</li>
 <li>It compares Arrays using the <a href="http://en.wikipedia.org/wiki/Longest_common_subsequence_problem">LCS(longest common subsequence)</a> algorithm.</li>
 <li>It recognizes similar Hashes in an Array using a similarity value (0 &lt; similarity &lt;= 1).</li>
 </ul>
@@ -335,7 +336,7 @@ diff.should <span class="o">==</span> [{<span class="s">&quot;~&quot;</span>, <s
 <pre><code class="language-crystal">a <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: [<span class="s">&quot;boat&quot;</span>, <span class="s">&quot;plane&quot;</span>] }
 b <span class="o">=</span> {a: <span class="s">&quot;car&quot;</span>, b: [<span class="s">&quot;plane&quot;</span>, <span class="s">&quot;boat&quot;</span>] }
 
-<span class="t">Hashdiff</span>.diff(a, b).should <span class="o">==</span> [[<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b[0]&quot;</span>, <span class="s">&quot;plane&quot;</span>], [<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b[2]&quot;</span>, <span class="s">&quot;plane&quot;</span>]]
+<span class="t">Hashdiff</span>.diff(a, b).should <span class="o">==</span> [{<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b[0]&quot;</span>, <span class="s">&quot;plane&quot;</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b[2]&quot;</span>, <span class="s">&quot;plane&quot;</span>}]
 
 b[<span class="n">:b</span>].sort!
 
