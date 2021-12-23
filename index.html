@@ -165,23 +165,6 @@ b <span class="o">=</span> {a: [{y: <span class="n">3</span>}, {x: <span class="
 
 diff <span class="o">=</span> <span class="t">Hashdiff</span>.best_diff(a, b)
 diff.should <span class="o">==</span> [{<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[0].x&quot;</span>, <span class="n">2</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[0].z&quot;</span>, <span class="n">4</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;a[1].y&quot;</span>, <span class="n">22</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b.x&quot;</span>, <span class="n">3</span>}, {<span class="s">&quot;-&quot;</span>, <span class="s">&quot;b.z&quot;</span>, <span class="n">45</span>}, {<span class="s">&quot;+&quot;</span>, <span class="s">&quot;b.y&quot;</span>, <span class="n">22</span>}]</code></pre>
-<h3><a id="patch" class="anchor" href="#patch">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>Patch</h3>
-<p>patch example:</p>
-<pre><code class="language-crystal">a <span class="o">=</span> {<span class="s">&quot;a&quot;</span> => <span class="n">3</span>}
-b <span class="o">=</span> {<span class="s">&quot;a&quot;</span> => {<span class="s">&quot;a1&quot;</span> => <span class="n">1</span>, <span class="s">&quot;a2&quot;</span> => <span class="n">2</span>}}
-
-diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b)
-<span class="t">Hashdiff</span>.patch!(a, diff).should <span class="o">==</span> b</code></pre>
-<p>unpatch example:</p>
-<pre><code class="language-crystal">a <span class="o">=</span> [{<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;d&quot;</span> => <span class="n">4</span>, <span class="s">&quot;e&quot;</span> => <span class="n">5</span>}, {<span class="s">&quot;x&quot;</span> => <span class="n">5</span>, <span class="s">&quot;y&quot;</span> => <span class="n">6</span>, <span class="s">&quot;z&quot;</span> => <span class="n">3</span>}, <span class="n">1</span>]
-b <span class="o">=</span> [<span class="n">1</span>, {<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;e&quot;</span> => <span class="n">5</span>}]
-
-diff <span class="o">=</span> <span class="t">Hashdiff</span>.diff(a, b) <span class="c"># diff two array is OK</span>
-<span class="t">Hashdiff</span>.unpatch!(b, diff).should <span class="o">==</span> a</code></pre>
 <h3><a id="options" class="anchor" href="#options">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
