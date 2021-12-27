@@ -59,11 +59,11 @@ module Hashdiff
         {{klass.id}}.call(obj1.as({{ttyp.id}}), obj2.as({{ltyp.id}}), **opts)
       {% end %}
       else
-        raise "Unsupported type: #{obj2.class}"
+        {{klass.id}}.call(obj1.as({{ttyp.id}}), obj2, **opts)
       end
     {% end %}
     else
-      raise "Unsupported type: #{obj1.class}"
+      {{klass.id}}.call(obj1, obj2, **opts)
     end
   end
 
@@ -77,11 +77,11 @@ module Hashdiff
         {{klass.id}}.call(obj1.as({{ttyp.id}}), obj2.as({{ltyp.id}}), **opts)
       {% end %}
       else
-        raise "Unsupported type: #{obj2.class}"
+        CompareHashes.call(obj1, obj2, **opts)
       end
     {% end %}
     else
-      raise "Unsupported type: #{obj1.class}"
+      CompareHashes.call(obj1, obj2, **opts)
     end
   end
 
