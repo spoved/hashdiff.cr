@@ -3,7 +3,9 @@ module Hashdiff
 
   # judge whether two objects are similar
   def similar?(obja, objb, **options) : Bool
-    return compare_values(obja, objb, **options) if !options[:comparison]? && !any_hash_or_array?(obja, objb)
+    if !options[:comparison]? && !any_hash_or_array?(obja, objb)
+      return compare_values(obja, objb, **options)
+    end
 
     count_a = count_nodes(obja)
     count_b = count_nodes(objb)

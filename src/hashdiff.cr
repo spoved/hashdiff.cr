@@ -112,20 +112,22 @@ module Hashdiff
               elsif !comparable?(obj1, obj2, opts[:strict])
                 [{"~", opts[:prefix], obj1, obj2}]
               elsif obj1.is_a?(Array) && obj2.is_a?(Array) && opts[:use_lcs]
+                Log.trace { "Using LcsCompareArrays" }
                 {% if T.union? || L.union? %}
-                  _array_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, LcsCompareArrays)
+                  _array_compare({{T.union_types}}, {{L.union_types}}, LcsCompareArrays)
                 {% else %}
                   LcsCompareArrays.call(obj1, obj2, **opts)
                 {% end %}
               elsif obj1.is_a?(Array) && obj2.is_a?(Array) && !opts[:use_lcs]
+                Log.trace { "Using LinearCompareArray" }
                 {% if T.union? || L.union? %}
-                  _array_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, LinearCompareArray)
+                  _array_compare({{T.union_types}}, {{L.union_types}}, LinearCompareArray)
                 {% else %}
                   LinearCompareArray.call(obj1, obj2, **opts)
                 {% end %}
               elsif obj1.is_a?(Hash) && obj2.is_a?(Hash)
                 {% if T.union? || L.union? %}
-                  _hash_compare({{T.union? ? T.union_types : [T]}}, {{L.union? ? L.union_types : [L]}}, CompareHashes)
+                  _hash_compare({{T.union_types}}, {{L.union_types}}, CompareHashes)
                 {% else %}
                   CompareHashes.call(obj1, obj2, **opts)
                 {% end %}

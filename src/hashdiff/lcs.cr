@@ -6,6 +6,7 @@ module Hashdiff
   # ameba:disable Metrics/CyclomaticComplexity
   def lcs(arraya, arrayb, **options) : Array(Tuple(Int32, Int32))
     return Array(Tuple(Int32, Int32)).new if arraya.empty? || arrayb.empty?
+    Log.trace { "compare #{arraya.class} and #{arrayb.class}" }
 
     opts = {similarity: 0.8, prefix: ""}
       .merge(options)
@@ -22,6 +23,8 @@ module Hashdiff
     (b_start..b_finish).each do |bi|
       lcs.insert(bi, Array(Tuple(Symbol, Int32)).new)
       (a_start..a_finish).each do |ai|
+        Log.trace { "compare #{arraya[ai].class} and #{arrayb[bi].class}" }
+
         if similar?(arraya[ai], arrayb[bi], **opts)
           topleft = (ai > 0) && (bi > 0) ? lcs[bi - 1][ai - 1][1].as(Int32) : 0
           lcs[bi].insert(ai, {:topleft, topleft + 1})

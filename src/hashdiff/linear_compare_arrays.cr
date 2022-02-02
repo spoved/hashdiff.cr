@@ -108,6 +108,7 @@ module Hashdiff
 
     def item_difference(old_item, new_item, item_index)
       prefix = Hashdiff.prefix_append_array_index(**options, array_index: item_index)
+      Log.trace { "linear : Comparing #{old_item} and #{new_item} at #{prefix}" }
       Hashdiff.diff(old_item, new_item, **options.merge(prefix: prefix))
     end
 

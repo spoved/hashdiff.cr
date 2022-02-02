@@ -3,10 +3,12 @@ require "./lcs"
 
 module Hashdiff::LcsCompareArrays
   extend self
+  Log = ::Log.for(self)
 
   def call(obj1 : Array(T), obj2 : Array(L), **opts) forall T, L
-    result = Array(DiffResult).new
+    Log.trace { "compare #{obj1.class} and #{obj2.class}" }
 
+    result = Array(DiffResult).new
     changeset = Hashdiff.diff_array_lcs(obj1, obj2, **opts) do |lcs|
       lcs.each do |pair|
         prefix = Hashdiff.prefix_append_array_index(**opts, array_index: pair[0])
