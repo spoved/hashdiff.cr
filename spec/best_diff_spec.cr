@@ -8,7 +8,7 @@ Spectator.describe Hashdiff do
     b = {"x" => [{"a" => 1, "b" => 2, "e" => 5}]}
 
     diff = described_class.best_diff(a, b)
-    expect(diff).to match [{"-", "x[0].c", 3}, {"+", "x[0].b", 2}, {"-", "x[1]", {"y" => 3}}]
+    expect(diff).to match to_diff_results([{"-", "x[0].c", 3}, {"+", "x[0].b", 2}, {"-", "x[1]", {"y" => 3}}])
   end
 
   it "uses custom delimiter when provided" do
@@ -16,7 +16,7 @@ Spectator.describe Hashdiff do
     b = {"x" => [{"a" => 1, "b" => 2, "e" => 5}]}
 
     diff = described_class.best_diff(a, b, delimiter: "\t")
-    expect(diff).to match [{"-", "x[0]\tc", 3}, {"+", "x[0]\tb", 2}, {"-", "x[1]", {"y" => 3}}]
+    expect(diff).to match to_diff_results [{"-", "x[0]\tc", 3}, {"+", "x[0]\tb", 2}, {"-", "x[1]", {"y" => 3}}]
   end
 
   # it "uses custom comparison when provided" do
@@ -58,7 +58,7 @@ Spectator.describe Hashdiff do
     }}
 
     diff = described_class.best_diff(a, b)
-    expect(diff).to match [
+    expect(diff).to match to_diff_results [
       {"~", "menu.id", "file", "file 2"},
       {"~", "menu.popup.menuitem[0].value", "New", "New1"},
       {"+", "menu.popup.menuitem[1]", {"value" => "Open", "onclick" => "OpenDoc()"}},
@@ -70,6 +70,6 @@ Spectator.describe Hashdiff do
     b = {"x" => [{"a" => 1, "b" => 2, "e" => 5}]}
 
     diff = described_class.best_diff(a, b, array_path: true)
-    expect(diff).to match [{"-", ["x", 0, "c"], 3}, {"+", ["x", 0, "b"], 2}, {"-", ["x", 1], {"y" => 3}}]
+    expect(diff).to match to_diff_results [{"-", ["x", 0, "c"], 3}, {"+", ["x", 0, "b"], 2}, {"-", ["x", 1], {"y" => 3}}]
   end
 end

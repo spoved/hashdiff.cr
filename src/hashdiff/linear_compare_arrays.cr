@@ -1,9 +1,9 @@
 module Hashdiff
   # Used to compare arrays in a linear complexity, which produces longer diffs
   # than using the lcs algorithm but is considerably faster
-  class LinearCompareArray(T, V)
-    def self.call(old_array : Array(L), new_array : Array(M), **options) forall L, M, T, V
-      LinearCompareArray(L, M).new(old_array, new_array, **options).call
+  class LinearCompareArray(T, L)
+    def self.call(old_array : Array(V), new_array : Array(M), **options) forall L, M, T, V
+      LinearCompareArray(V, M).new(old_array, new_array, **options).call
     end
 
     alias Options = NamedTuple(
@@ -19,16 +19,16 @@ module Hashdiff
       prefix: Array(String | Symbol) | Array(String) | String,
     )
     getter old_array : Array(T)
-    getter new_array : Array(V)
+    getter new_array : Array(L)
     getter options : Options
-    getter additions = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new
-    getter deletions = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new
-    # getter differences = Array(Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, T) | Tuple(String, Array(Int32 | String | Symbol) | Array(Int32 | String) | String, V)).new
+    getter additions = Array(DiffResult(Array(Int32 | String | Symbol) | String, T | L)).new
+    getter deletions = Array(DiffResult(Array(Int32 | String | Symbol) | String, T | L)).new
+
     property old_index : Int32 = 0
     property new_index : Int32 = 0
     property expected_additions : Int32 = 0
 
-    def initialize(@old_array : Array(T), @new_array : Array(V), **options)
+    def initialize(@old_array : Array(T), @new_array : Array(L), **options)
       @options = Options.from({
         prefix:            "",
         similarity:        0.8,
@@ -44,7 +44,8 @@ module Hashdiff
     end
 
     def call
-      return Array(DiffResult).new if old_array.empty? && new_array.empty?
+      differences = Array(DiffResult(Array(Int32 | String | Symbol) | String, T | L)).new
+      return differences if old_array.empty? && new_array.empty?
 
       self.old_index = 0
       self.new_index = 0
@@ -52,7 +53,6 @@ module Hashdiff
       # are either added or removed
       self.expected_additions = new_array.size - old_array.size
 
-      differences = Array(DiffResult).new
       loop do
         if extra_items_in_old_array?
           append_deletion(old_array[old_index], old_index)
@@ -62,8 +62,7 @@ module Hashdiff
           _diffs = compare_at_index
           if !_diffs.nil? && _diffs.is_a?(Array)
             _diffs.each do |diff|
-              # differences << diff
-              differences = differences + [diff]
+              differences += [diff]
             end
           end
         end
@@ -109,7 +108,7 @@ module Hashdiff
     def item_difference(old_item, new_item, item_index)
       prefix = Hashdiff.prefix_append_array_index(**options, array_index: item_index)
       Log.trace { "linear : Comparing #{old_item} and #{new_item} at #{prefix}" }
-      Hashdiff.diff(old_item, new_item, **options.merge(prefix: prefix))
+      Hashdiff._diff(old_item, new_item, **options.merge(prefix: prefix))
     end
 
     # look ahead in the new array to see if the current item appears later
@@ -166,16 +165,12 @@ module Hashdiff
 
     def append_addition(item, index)
       key = Hashdiff.prefix_append_array_index(**options, array_index: index)
-      self.additions << {"+", key, item}
+      self.additions << DiffResult(Array(Int32 | String | Symbol) | String, T | L).new("+", Hashdiff.cast_path_value(key), item)
     end
 
     def append_deletion(item, index)
       key = Hashdiff.prefix_append_array_index(**options, array_index: index)
-      self.deletions << {"-", key, item}
-    end
-
-    def append_differences(difference : Array(Tuple))
-      @differences += difference
+      self.deletions << DiffResult(Array(Int32 | String | Symbol) | String, T | L).new("-", Hashdiff.cast_path_value(key), item)
     end
   end
 end

@@ -1,12 +1,11 @@
 require "log"
 require "./version"
+require "./hashdiff/diff_result"
 require "./hashdiff/*"
 
 module Hashdiff
   Log = ::Log.for("hashdiff")
 
-  # :nodoc:
-  alias DiffResult = Tuple(String, Array(String), String)
   # :nodoc:
   alias LcsDiffResult = Tuple(String, Int32, String)
 
@@ -34,15 +33,15 @@ module Hashdiff
   # ```
   def best_diff(obj1, obj2, **options)
     opts = {similarity: 0.3}.merge(options)
-    diffs1 = diff(obj1, obj2, **opts)
+    diffs1 = _diff(obj1, obj2, **opts)
     count1 = count_diff diffs1
 
     opts = {similarity: 0.5}.merge(options)
-    diffs2 = diff(obj1, obj2, **opts)
+    diffs2 = _diff(obj1, obj2, **opts)
     count2 = count_diff diffs2
 
     opts = {similarity: 0.8}.merge(options)
-    diffs3 = diff(obj1, obj2, **opts)
+    diffs3 = _diff(obj1, obj2, **opts)
     count3 = count_diff diffs3
 
     count, diffs = (count1 < count2) ? {count1, diffs1} : {count2, diffs2}
@@ -85,8 +84,12 @@ module Hashdiff
     end
   end
 
-  # ameba:disable Metrics/CyclomaticComplexity
   def diff(obj1 : T, obj2 : L, **options) forall T, L
+    _diff(obj1, obj2, **options)
+  end
+
+  # ameba:disable Metrics/CyclomaticComplexity
+  protected def _diff(obj1 : T, obj2 : L, **options) forall T, L
     obj1 = obj1.to_h if obj1.is_a?(NamedTuple)
     obj2 = obj2.to_h if obj2.is_a?(NamedTuple)
 
@@ -105,53 +108,53 @@ module Hashdiff
     }.merge(options)
     opts = opts.merge({prefix: Array(String).new}) if opts[:array_path] && !opts[:prefix].is_a?(Array)
 
-    results = if obj1.nil? && obj2.nil?
-                Array(DiffResult).new
-              elsif obj1.nil? || obj2.nil?
-                [{"~", opts[:prefix], obj1, obj2}]
-              elsif !comparable?(obj1, obj2, opts[:strict])
-                [{"~", opts[:prefix], obj1, obj2}]
-              elsif obj1.is_a?(Array) && obj2.is_a?(Array) && opts[:use_lcs]
-                Log.trace { "Using LcsCompareArrays" }
-                {% if T.union? || L.union? %}
-                  _array_compare({{T.union_types}}, {{L.union_types}}, LcsCompareArrays)
-                {% else %}
-                  LcsCompareArrays.call(obj1, obj2, **opts)
-                {% end %}
-              elsif obj1.is_a?(Array) && obj2.is_a?(Array) && !opts[:use_lcs]
-                Log.trace { "Using LinearCompareArray" }
-                {% if T.union? || L.union? %}
-                  _array_compare({{T.union_types}}, {{L.union_types}}, LinearCompareArray)
-                {% else %}
-                  LinearCompareArray.call(obj1, obj2, **opts)
-                {% end %}
-              elsif obj1.is_a?(Hash) && obj2.is_a?(Hash)
-                {% if T.union? || L.union? %}
-                  _hash_compare({{T.union_types}}, {{L.union_types}}, CompareHashes)
-                {% else %}
-                  CompareHashes.call(obj1, obj2, **opts)
-                {% end %}
-              elsif compare_values(obj1, obj2, **opts)
-                Array(DiffResult).new
-              else
-                [{"~", opts[:prefix], obj1, obj2}]
-              end
-
-    results
-  end
-
-  def diff(obj1 : NamedTuple, obj2 : NamedTuple, **options)
-    diff(obj1.to_h, obj2.to_h, **options)
+    if obj1.nil? && obj2.nil?
+      Array(DiffResult(Array(Int32 | String | Symbol) | String, T | L)).new
+    elsif obj1.nil? || obj2.nil?
+      [DiffResult.new({"~", opts[:prefix], obj1, obj2})]
+    elsif !comparable?(obj1, obj2, opts[:strict])
+      [DiffResult.new({"~", opts[:prefix], obj1, obj2})]
+    elsif obj1.is_a?(Array) && obj2.is_a?(Array) && opts[:use_lcs]
+      Log.trace { "Using LcsCompareArrays" }
+      {% if T.union? || L.union? %}
+        _array_compare({{T.union_types}}, {{L.union_types}}, LcsCompareArrays)
+      {% else %}
+        LcsCompareArrays.call(obj1, obj2, **opts)
+      {% end %}
+    elsif obj1.is_a?(Array) && obj2.is_a?(Array) && !opts[:use_lcs]
+      Log.trace { "Using LinearCompareArray" }
+      {% if T.union? || L.union? %}
+        _array_compare({{T.union_types}}, {{L.union_types}}, LinearCompareArray)
+      {% else %}
+        LinearCompareArray.call(obj1, obj2, **opts)
+      {% end %}
+    elsif obj1.is_a?(Hash) && obj2.is_a?(Hash)
+      {% if T.union? || L.union? %}
+        _hash_compare({{T.union_types}}, {{L.union_types}}, CompareHashes)
+      {% else %}
+        CompareHashes.call(obj1, obj2, **opts)
+      {% end %}
+    elsif compare_values(obj1, obj2, **opts)
+      Array(DiffResult(Array(Int32 | String | Symbol) | String, T | L)).new
+    else
+      if obj1.nil?
+        [DiffResult.new({"+", opts[:prefix], obj2})]
+      elsif obj2.nil?
+        [DiffResult.new({"-", opts[:prefix], obj1})]
+      else
+        [DiffResult.new({"~", opts[:prefix], obj1.not_nil!, obj2.not_nil!})]
+      end
+    end
   end
 
   # diff array using LCS algorithm
-  def diff_array_lcs(arraya, arrayb, **options)
-    change_set = Array(LcsDiffResult).new
+  def diff_array_lcs(arraya : Array(X), arrayb : Array(Y), **options) forall X, Y
+    change_set = Array(DiffResult(Array(Int32 | String | Symbol) | String, X | Y)).new
     return change_set if arraya.empty? && arrayb.empty?
 
     if arraya.empty?
       arrayb.each_index do |index|
-        change_set = change_set + [{"+", index, arrayb[index]}]
+        change_set = change_set + [DiffResult.new({"+", index, arrayb[index]})]
       end
 
       return change_set
@@ -160,7 +163,7 @@ module Hashdiff
     if arrayb.empty?
       arraya.each_index do |index|
         i = arraya.size - index - 1
-        change_set = change_set + [{"-", i, arraya[i]}]
+        change_set = change_set + [DiffResult.new({"-", i, arraya[i]})]
       end
 
       return change_set
@@ -186,19 +189,18 @@ module Hashdiff
 
       # remove from a, beginning from the end
       (x > last_x + 1) && (x - last_x - 2).downto(0).each do |i|
-        change_set = change_set + [{"-", last_y + i + 1, arraya[i + last_x + 1]}]
+        change_set += [DiffResult.new({"-", last_y + i + 1, arraya[i + last_x + 1]})]
       end
 
       # add from b, beginning from the head
       (y > last_y + 1) && 0.upto(y - last_y - 2).each do |i|
-        change_set = change_set + [{"+", last_y + i + 1, arrayb[i + last_y + 1]}]
+        change_set += [DiffResult.new({"+", last_y + i + 1, arrayb[i + last_y + 1]})]
       end
 
       # update flags
       last_x = x
       last_y = y
     end
-
     change_set
   end
 

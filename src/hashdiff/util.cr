@@ -13,7 +13,7 @@ module Hashdiff
     return true if (count_a + count_b).zero?
 
     opts = {similarity: 0.8}.merge(options)
-    diffs = count_diff diff(obja, objb, **opts)
+    diffs = count_diff _diff(obja, objb, **opts)
 
     (1 - diffs / (count_a + count_b).to_f) >= opts[:similarity]
   end
@@ -132,5 +132,13 @@ module Hashdiff
   # checks if both objects are Arrays or Hashes
   private def any_hash_or_array?(obja, objb)
     obja.is_a?(Array) || obja.is_a?(Hash) || objb.is_a?(Array) || objb.is_a?(Hash)
+  end
+
+  def cast_path_value(array) : Array(Int32 | String | Symbol) | String
+    if array.is_a?(Array)
+      Array(Int32 | String | Symbol).new.concat(array.reject(Nil))
+    else
+      array.to_s
+    end
   end
 end

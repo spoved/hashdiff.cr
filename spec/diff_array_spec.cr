@@ -15,7 +15,7 @@ Spectator.describe Hashdiff do
     b = [1, 8, 7]
 
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"-", 2, 3}, {"-", 1, 2}, {"+", 1, 8}, {"+", 2, 7}]
+    expect(diff).to match to_diff_results [{"-", 2, 3}, {"-", 1, 2}, {"+", 1, 8}, {"+", 2, 7}]
   end
 
   it "is able to diff two arrays with nothing in common" do
@@ -23,7 +23,7 @@ Spectator.describe Hashdiff do
     b = Array(Int32).new
 
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"-", 1, 2}, {"-", 0, 1}]
+    expect(diff).to match to_diff_results [{"-", 1, 2}, {"-", 0, 1}]
   end
 
   it "is able to diff an empty array with an non-empty array" do
@@ -31,7 +31,7 @@ Spectator.describe Hashdiff do
     b = [1, 2]
 
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"+", 0, 1}, {"+", 1, 2}]
+    expect(diff).to match to_diff_results [{"+", 0, 1}, {"+", 1, 2}]
   end
 
   it "is able to diff two arrays with two elements in common" do
@@ -39,7 +39,7 @@ Spectator.describe Hashdiff do
     b = [2, 3, 7, 5]
 
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"-", 0, 1}, {"+", 0, 2}, {"+", 2, 7}, {"-", 4, 7}]
+    expect(diff).to match to_diff_results [{"-", 0, 1}, {"+", 0, 2}, {"+", 2, 7}, {"-", 4, 7}]
   end
 
   it "is able to test two arrays with two common elements in different order" do
@@ -47,13 +47,13 @@ Spectator.describe Hashdiff do
     b = [2, 3, 7, 5]
 
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"-", 0, 1}, {"+", 0, 2}, {"-", 2, 4}, {"+", 3, 5}]
+    expect(diff).to match to_diff_results [{"-", 0, 1}, {"+", 0, 2}, {"-", 2, 4}, {"+", 3, 5}]
   end
 
   it "is able to diff two arrays with similar elements" do
     a = [{"a" => 1, "b" => 2, "c" => 3, "d" => 4, "e" => 5}, 3]
     b = [1, {"a" => 1, "b" => 2, "c" => 3, "e" => 5}]
     diff = described_class.diff_array_lcs(a, b) { }
-    expect(diff).to match [{"+", 0, 1}, {"-", 2, 3}]
+    expect(diff).to match to_diff_results [{"+", 0, 1}, {"-", 2, 3}]
   end
 end

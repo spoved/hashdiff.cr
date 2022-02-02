@@ -4,13 +4,13 @@ module Hashdiff::CompareHashes
   extend self
 
   def call(obj1 : Hash(K, V), obj2 : Hash(T, L), **opts) forall K, V, T, L
-    result = Array(DiffResult).new
+    result = Array(DiffResult(Array(Int32 | String | Symbol) | String, V | L)).new
     return result if obj1.empty? && obj2.empty?
 
-    obj1_keys = Array(String | Symbol).new + obj1.keys
-    obj2_keys = Array(String | Symbol).new + obj2.keys
-    obj1_lookup = Hash(String, String | K | V | T | L | Nil).new
-    obj2_lookup = Hash(String, String | K | V | T | L | Nil).new
+    obj1_keys = Array(Int32 | String | Symbol).new + obj1.keys
+    obj2_keys = Array(Int32 | String | Symbol).new + obj2.keys
+    obj1_lookup = Hash(String, String | K | T).new
+    obj2_lookup = Hash(String, String | K | T).new
 
     if opts[:indifferent]
       obj1_lookup = obj1.keys.to_h { |k| {k.to_s, k} }
@@ -27,14 +27,14 @@ module Hashdiff::CompareHashes
     deleted_keys.each do |k|
       k = opts[:indifferent] ? obj1_lookup[k] : k
       change_key = Hashdiff.prefix_append_key(k, **opts)
-      result += [{"-", change_key, obj1[k]}]
+      result += [DiffResult.new({"-", change_key, obj1[k]})]
     end
 
     # added properties
     added_keys.each do |k|
       change_key = Hashdiff.prefix_append_key(k, **opts)
       k = opts[:indifferent] ? obj2_lookup[k] : k
-      result += [{"+", change_key, obj2[k]}]
+      result += [DiffResult.new({"+", change_key, obj2[k]})]
     end
 
     # recursive comparison for common keys
@@ -43,7 +43,7 @@ module Hashdiff::CompareHashes
       k1 = opts[:indifferent] ? obj1_lookup[k] : k
       k2 = opts[:indifferent] ? obj2_lookup[k] : k
 
-      Hashdiff.diff(obj1[k1]?, obj2[k2]?, **opts.merge(prefix: prefix)).each do |change|
+      Hashdiff._diff(obj1[k1]?, obj2[k2]?, **opts.merge(prefix: prefix)).each do |change|
         result += [change]
       end
     end
