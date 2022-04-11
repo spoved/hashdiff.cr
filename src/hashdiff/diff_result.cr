@@ -38,10 +38,21 @@ struct Hashdiff::DiffResult(Y, Z)
     self[index]
   end
 
-  def to_t
+  def to_t : Tuple(String, Y, Z) | Tuple(String, Y, Z, Z | Nil)
     case mode
-    when "-", "+" then {mode, path, value}
-    when "~"      then {mode, path, value, new_value}
+    when "-", "+"
+      Tuple(String, Y, Z).new(@mode, @path, @value)
+    when "~"
+      Tuple(String, Y, Z, Z | Nil).new(@mode, @path, @value, @new_value)
+    else
+      raise "invalid mode #{mode}"
+    end
+  end
+
+  def to_a : Array(String | Y | Z) | Array(String | Y | Z | Nil)
+    case mode
+    when "-", "+" then [mode, path, value]
+    when "~"      then [mode, path, value, new_value]
     else               raise "invalid mode #{mode}"
     end
   end
